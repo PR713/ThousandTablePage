@@ -5,6 +5,7 @@ const sumDisplay = document.getElementById('sum-display');
 const sumsText = document.getElementById('sums-text');
 const clearBtn = document.getElementById('clear-btn');
 let lastClickTime = 0;
+let lastClickTime1 = 0;
 const doubleClickThreshold = 1500;
 
 window.addEventListener('load', () => {
@@ -16,18 +17,19 @@ btnAddRows.addEventListener('click', () => {
     const numOfPlayers = inputEl.value;
     if (numOfPlayers === '' || numOfPlayers <= 0) {
         alert('Please enter a valid number of players');
-        return;
+        return; //if no input or <= 0, do nothing
     }
 
     addRow(numOfPlayers);
     saveTableToLocalStorage();
 })
 
-
-clearBtn.addEventListener('click', () => {
-    const currentTime = new Date().getTime();
+clearBtn.addEventListener('click', () => { //dblclick
+    //on mobiles is not possible... so
+    const currentTime = new Date().getTime(); //from 1970
 
     if (currentTime - lastClickTime < doubleClickThreshold) {
+        //if it is first click for sure it won't be called
         localStorage.clear();
         table.innerHTML = '';
         inputEl.value = '';
@@ -64,6 +66,28 @@ function addRow(numOfPlayers) {
         row.appendChild(cell);
     }
 
+    if (table.rows.length > 0) { //below if is appendChild(row)
+        let deleteCell = document.createElement('td');
+        let deleteButton = document.createElement('button');
+        deleteButton.innerHTML = 'X';
+        deleteButton.style.fontSize = 14 + 'px';
+        deleteButton.style.backgroundColor = '#ff4444';
+
+        deleteButton.addEventListener('click', () => {
+            const currentTime = new Date().getTime(); //from 1970
+            if (currentTime - lastClickTime1 < doubleClickThreshold) {
+                row.remove();
+                updateSums();
+                saveTableToLocalStorage();
+            }
+
+            lastClickTime1 = currentTime
+        });
+
+        deleteCell.appendChild(deleteButton);
+        row.appendChild(deleteCell);
+    }
+
     table.appendChild(row);
 }
 
@@ -77,7 +101,7 @@ function updateSums() {
 
     for (let i = 1; i < rows.length; i++){
         const cells = rows[i].getElementsByTagName('td');
-        for (let j = 0; j < cells.length; j++){
+        for (let j = 0; j < cells.length - 1; j++){
             const input = cells[j].getElementsByTagName('input')[0];
             let inputVal = input.value.trim();
 
@@ -95,7 +119,6 @@ function updateSums() {
 
     displaySums(sums);
 }
-
 
 function displaySums(sums) {
     const numOfPlayers = Number(inputEl.value);
@@ -119,7 +142,7 @@ function saveTableToLocalStorage() {
         const cells = rows[i].getElementsByTagName('td');
         const rowData = [];
 
-        for (let j = 0; j < cells.length; j++) {
+        for (let j = 0; j < cells.length - 1; j++) {
             const input = cells[j].getElementsByTagName('input')[0];
             rowData.push(input.value);
         }
@@ -136,7 +159,9 @@ function loadTableFromLocalStorage() {
     const tableData = JSON.parse(localStorage.getItem('tableData'));
     const numOfPlayers = localStorage.getItem('numOfPlayers');
 
-    if (tableData && numOfPlayers && numOfPlayers > 0) {
+    if (tableData && numOfPlayers && numOfPlayers > 0) { //available and num > 0
+        //earlier checked where that function and save function are called,
+        //so this is for care
         inputEl.value = numOfPlayers;
 
         for (let rowIndex = 0; rowIndex < tableData.length; rowIndex++) {
@@ -144,7 +169,7 @@ function loadTableFromLocalStorage() {
 
             const cells = table.rows[rowIndex].getElementsByTagName('td');
 
-            for (let colIndex = 0; colIndex < cells.length; colIndex++) {
+            for (let colIndex = 0; colIndex < cells.length - 1; colIndex++) {
                 const input = cells[colIndex].getElementsByTagName('input')[0];
                 input.value = tableData[rowIndex][colIndex];
             }
