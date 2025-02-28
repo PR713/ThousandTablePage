@@ -121,8 +121,8 @@ button:hover {
 
 @media (max-width: 600px) {
     body {
-        scale: 90%;
-        margin: 12px;
+        scale: 85%;
+        margin: 10px;
     }
 
     #input-num-of-players {
