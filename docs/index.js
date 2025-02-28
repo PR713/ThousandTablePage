@@ -4,6 +4,8 @@ const inputEl = document.getElementById('input-num-of-players');
 const sumDisplay = document.getElementById('sum-display');
 const sumsText = document.getElementById('sums-text');
 const clearBtn = document.getElementById('clear-btn');
+let lastClickTime = 0;
+const doubleClickThreshold = 1500;
 
 window.addEventListener('load', () => {
     loadTableFromLocalStorage();
@@ -21,13 +23,20 @@ btnAddRows.addEventListener('click', () => {
     saveTableToLocalStorage();
 })
 
-clearBtn.addEventListener('dblclick', () => {
-    localStorage.clear();
-    table.innerHTML = '';
-    inputEl.value = '';
-    sumDisplay.innerHTML = '';
-    sumsText.style.display = 'none';
-    sumDisplay.style.display = 'none';
+
+clearBtn.addEventListener('click', () => {
+    const currentTime = new Date().getTime();
+
+    if (currentTime - lastClickTime < doubleClickThreshold) {
+        localStorage.clear();
+        table.innerHTML = '';
+        inputEl.value = '';
+        sumDisplay.innerHTML = '';
+        sumsText.style.display = 'none';
+        sumDisplay.style.display = 'none';
+    }
+
+    lastClickTime = currentTime;
 })
 
 
