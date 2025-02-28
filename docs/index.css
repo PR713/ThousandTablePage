@@ -10,6 +10,15 @@ body {
     body {
         margin: 12px;
     }
+
+    #input-num-of-players {
+    min-width: 125px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    outline: none;
+    text-align: right;
+}
 }
 
 #table {
