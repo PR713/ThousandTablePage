@@ -1,9 +1,15 @@
 
 body {
     font-family: Arial, sans-serif;
-    margin: 30px;
+    margin: 40px;
     background-color: #f4f4f4;
     color: #333;
+}
+
+@media (max-width: 600px) {
+    body {
+        margin: 12px;
+    }
 }
 
 #table {
@@ -55,13 +61,14 @@ body {
 }
 
 #input-num-of-players {
-    max-width: 120px;
+    max-width: 110px;
     padding: 5px;
     border-radius: 4px;
     border: 1px solid #aaa;
     outline: none;
     text-align: right;
 }
+
 
 input {
     max-width: 70px;
