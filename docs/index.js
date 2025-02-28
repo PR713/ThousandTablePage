@@ -17,19 +17,18 @@ btnAddRows.addEventListener('click', () => {
     const numOfPlayers = inputEl.value;
     if (numOfPlayers === '' || numOfPlayers <= 0) {
         alert('Please enter a valid number of players');
-        return; //if no input or <= 0, do nothing
+        return;
     }
 
     addRow(numOfPlayers);
     saveTableToLocalStorage();
 })
 
-clearBtn.addEventListener('click', () => { //dblclick
-    //on mobiles is not possible... so
-    const currentTime = new Date().getTime(); //from 1970
+clearBtn.addEventListener('click', () => {
+    const currentTime = new Date().getTime();
 
     if (currentTime - lastClickTime < doubleClickThreshold) {
-        //if it is first click for sure it won't be called
+
         localStorage.clear();
         table.innerHTML = '';
         inputEl.value = '';
@@ -66,7 +65,7 @@ function addRow(numOfPlayers) {
         row.appendChild(cell);
     }
 
-    if (table.rows.length > 0) { //below if is appendChild(row)
+    if (table.rows.length > 0) {
         let deleteCell = document.createElement('td');
         let deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'X';
@@ -159,9 +158,7 @@ function loadTableFromLocalStorage() {
     const tableData = JSON.parse(localStorage.getItem('tableData'));
     const numOfPlayers = localStorage.getItem('numOfPlayers');
 
-    if (tableData && numOfPlayers && numOfPlayers > 0) { //available and num > 0
-        //earlier checked where that function and save function are called,
-        //so this is for care
+    if (tableData && numOfPlayers && numOfPlayers > 0) {
         inputEl.value = numOfPlayers;
 
         for (let rowIndex = 0; rowIndex < tableData.length; rowIndex++) {
