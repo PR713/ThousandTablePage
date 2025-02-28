@@ -67,6 +67,7 @@ function addRow(numOfPlayers) {
     table.appendChild(row);
 }
 
+
 function updateSums() {
     const rows = table.getElementsByTagName('tr');
     sums = new Array(Number(inputEl.value)).fill(0);
@@ -94,6 +95,7 @@ function updateSums() {
 
     displaySums(sums);
 }
+
 
 function displaySums(sums) {
     const numOfPlayers = Number(inputEl.value);
