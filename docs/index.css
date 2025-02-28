@@ -6,20 +6,6 @@ body {
     color: #333;
 }
 
-@media (max-width: 600px) {
-    body {
-        margin: 12px;
-    }
-
-    #input-num-of-players {
-    min-width: 125px;
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #aaa;
-    outline: none;
-    text-align: right;
-}
-}
 
 #table {
     margin-top: 30px;
@@ -131,6 +117,21 @@ button:hover {
     margin-top: 30px;
     display: none;
     font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    body {
+        margin: 12px;
+    }
+
+    #input-num-of-players {
+    min-width: 125px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    outline: none;
+    text-align: right;
+    }
 }
 
 
