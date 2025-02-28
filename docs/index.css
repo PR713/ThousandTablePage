@@ -1,0 +1,120 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+#table {
+    margin-top: 30px;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+
+#table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#table tr:last-child {
+    border-bottom: none;
+}
+
+
+#table td {
+    padding: 5px;
+    text-align: center;
+}
+
+
+#table tr:first-child td input {
+    text-align: left;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    outline: none;
+    background: #f0f0f0;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+
+#table tr:not(:first-child) td input {
+    text-align: right;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    outline: none;
+}
+
+
+#table tr:not(:first-child) td input:focus {
+    border-color: #007bff;
+}
+
+#input-num-of-players {
+    max-width: 120px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    outline: none;
+    text-align: right;
+}
+
+input {
+    max-width: 70px;
+}
+
+button {
+    background-color: #74b6ff;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    padding: 5px 8px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+#other {
+    display: flex;
+    gap: 5px;
+}
+
+#sum-display {
+    display: none;
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #333;
+    background: white;
+    padding: 10px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+
+}
+
+
+#sum-display td {
+    min-width: 81.5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: right;
+    border: none;
+}
+
+#sums-text {
+    margin-left: 5px;
+    margin-top: 30px;
+    display: none;
+    font-weight: bold;
+}
+
+
