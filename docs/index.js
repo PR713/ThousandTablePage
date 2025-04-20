@@ -15,6 +15,14 @@ window.addEventListener('load', () => {
 
 btnAddRows.addEventListener('click', () => {
     const numOfPlayers = inputEl.value;
+    const prevNumOfPlayers = localStorage.getItem('numOfPlayers');
+
+    if (prevNumOfPlayers != null && numOfPlayers !== prevNumOfPlayers && table.rows.length > 0) {
+        alert(`Number of players that has been chosen: ${prevNumOfPlayers}!`);
+        inputEl.value = prevNumOfPlayers;
+        return;
+    }
+
     if (numOfPlayers === '' || numOfPlayers <= 0) {
         alert('Please enter a valid number of players');
         return;
@@ -28,7 +36,6 @@ clearBtn.addEventListener('click', () => {
     const currentTime = new Date().getTime();
 
     if (currentTime - lastClickTime < doubleClickThreshold) {
-
         localStorage.clear();
         table.innerHTML = '';
         inputEl.value = '';
@@ -39,7 +46,6 @@ clearBtn.addEventListener('click', () => {
 
     lastClickTime = currentTime;
 })
-
 
 function addRow(numOfPlayers) {
     let row = document.createElement('tr')
@@ -73,7 +79,7 @@ function addRow(numOfPlayers) {
         deleteButton.style.backgroundColor = '#ff4444';
 
         deleteButton.addEventListener('click', () => {
-            const currentTime = new Date().getTime(); //from 1970
+            const currentTime = new Date().getTime();
             if (currentTime - lastClickTime1 < doubleClickThreshold) {
                 row.remove();
                 updateSums();
@@ -93,7 +99,7 @@ function addRow(numOfPlayers) {
 
 function updateSums() {
     const rows = table.getElementsByTagName('tr');
-    sums = new Array(Number(inputEl.value)).fill(0);
+    let sums = new Array(Number(inputEl.value)).fill(0);
     sumsText.style.display = 'block';
     sumDisplay.style.display = 'table';
 
@@ -140,8 +146,8 @@ function saveTableToLocalStorage() {
     for (let i = 0; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName('td');
         const rowData = [];
-
-        for (let j = 0; j < cells.length - 1; j++) {
+        const isFirstRow = (i === 0)
+        for (let j = 0; j < (isFirstRow ? cells.length : cells.length - 1); j++) {
             const input = cells[j].getElementsByTagName('input')[0];
             rowData.push(input.value);
         }
@@ -165,8 +171,8 @@ function loadTableFromLocalStorage() {
             addRow(numOfPlayers);
 
             const cells = table.rows[rowIndex].getElementsByTagName('td');
-
-            for (let colIndex = 0; colIndex < cells.length - 1; colIndex++) {
+            const isFirstRow = (rowIndex === 0)
+            for (let colIndex = 0; colIndex < (isFirstRow ? cells.length : cells.length - 1); colIndex++) {
                 const input = cells[colIndex].getElementsByTagName('input')[0];
                 input.value = tableData[rowIndex][colIndex];
             }
